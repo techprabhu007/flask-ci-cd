@@ -7,12 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                cleanWs()
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh '''
@@ -38,6 +32,8 @@ pipeline {
 
     post {
         always {
+            echo 'Cleaning workspace after pipeline completion...'
+            cleanWs()
             echo 'Pipeline completed.'
         }
     }
